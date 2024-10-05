@@ -1,10 +1,8 @@
-import { Box } from "@mui/material"
-import PlanetScene from "./views/components/PlanetScene"
+
+import CreatePlanetView from "./views/CreatePlanetView"
 
 export const App = () => {
   return (
-    <Box sx={{width: '50%'}}>
-      <PlanetScene/>
-    </Box>
+      <CreatePlanetView/>
   )
 }
