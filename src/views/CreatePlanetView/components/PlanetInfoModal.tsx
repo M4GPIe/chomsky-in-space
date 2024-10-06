@@ -85,7 +85,7 @@ const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClo
         },
       }}
     >
-      <DialogTitle variant='h4' sx={{ textAlign: 'center', color: '#fff' }}>🚀 Editar Exoplaneta </DialogTitle>
+      <DialogTitle variant='h4' display='flex' sx={{ textAlign: 'center', color: '#fff', fontFamily: 'AstroFuture, sans-serif',fontSize:'25px',width:'100%' }}>🚀 Editar Exoplaneta </DialogTitle>
       <DialogContent>
         <Box sx={{ position: 'relative', my: 2 }}>
           <LinearProgress
@@ -126,10 +126,10 @@ const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClo
           </Box>
         </Box>
 
-        <Box mt={2}>
+        <Box mt={4}>
           <Box>
-            <Typography variant='h5' sx={{ color: 'white' }}>{currentTabInfo.label}</Typography>
-            <Typography variant="subtitle1" sx={{ color: 'white' }}>{currentTabInfo.subtitle}</Typography>
+            <Typography variant='h5' sx={{ color: 'white', fontFamily: 'Retropix', }}>{currentTabInfo.label}</Typography>
+            <Typography variant="subtitle1" sx={{ color: 'white',fontFamily: 'Retropix' }}>{currentTabInfo.subtitle}</Typography>
             <TextField
               label={currentTabInfo.label}  // Etiqueta amigable para los usuarios
               name={currentTabInfo.fieldName}
@@ -140,13 +140,16 @@ const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClo
               variant="outlined" // Asegura un borde claro alrededor del campo
               InputProps={{
                 sx: {
+                  fontFamily: 'Retropix',
                   backgroundColor: '#fff', // Fondo blanco del campo de texto
                   borderRadius: 2,
                   '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'black', // Borde negro al hacer hover
+                    borderColor: 'black', // Borde negro al hacer hover,
+                    fontFamily: 'Retropix'
                   },
                   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'black', // Borde negro cuando está enfocado
+                    borderColor: 'black', // Borde negro cuando está enfocado,
+                    fontFamily: 'Retropix'
                   },
                 },
               }}
@@ -154,10 +157,12 @@ const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClo
                 sx: {
                   padding: '0 4px',           // Espacio para evitar superposición con el campo de texto
                   color: 'black',             // Color negro del texto del label
+                  fontFamily: 'Retropix',
                   '&.MuiInputLabel-shrink': { // Aplica cuando el label está flotando
                     transform: 'translate(14px, -9px) scale(0.75)', // Ajuste de posición para el label flotante
                     backgroundColor: appColorPalette['PURPLE'].bright,
-                    color: 'white'
+                    color: 'white',
+                    fontFamily: 'Retropix'
                   },
                   borderRadius:'5px'
                 },
