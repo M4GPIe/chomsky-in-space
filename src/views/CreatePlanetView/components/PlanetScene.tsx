@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as BABYLON from '@babylonjs/core';
+import '@babylonjs/loaders'; // Import loaders to load .obj files
 import ExoplanetRender from './ExoplanetRender';
+import { Earth } from '../../../models/planet';
 
 const PlanetScene: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -27,7 +29,7 @@ const PlanetScene: React.FC = () => {
 
         // Luz
         const light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 0), newScene);
-        light.intensity = 0.7;
+        light.intensity = 1.7;
 
         // Render loop
         engine.runRenderLoop(() => {
@@ -49,27 +51,11 @@ const PlanetScene: React.FC = () => {
         <div style={{ width: '100%', height: '100%' }}>
             <canvas ref={canvasRef} style={{ width: '100%', height: '100%' }} />
             {scene && (
-                <>
-                    {/* Planeta principal que rota sobre su propio eje */}
-                    <ExoplanetRender
-                        scene={scene}
-                        position={new BABYLON.Vector3(0, 0, 0)}  // El planeta está en el centro
-                        diameter={3}
-                        color={new BABYLON.Color3(0.2, 0.5, 0.8)}
-                        name="Planet1"
-                        rotationSpeed={0.01}  // Velocidad de rotación más rápida
-                    />
-
-                    {/* Luna en órbita y que también rota sobre su propio eje */}
-                    <ExoplanetRender
-                        scene={scene}
-                        position={new BABYLON.Vector3(5 * Math.cos(time), 0, 5 * Math.sin(time))}  // Posición de la luna con respecto al tiempo
-                        diameter={1}
-                        color={new BABYLON.Color3(0.8, 0.3, 0.2)}
-                        name="Moon1"
-                        rotationSpeed={0.02}  // Velocidad de rotación de la luna
-                    />
-                </>
+                <ExoplanetRender
+                    scene={scene}
+                    position={new BABYLON.Vector3(0, 0, 0)}  // El planeta está en el centro
+                    exoplanet={Earth}
+                />
             )}
         </div>
     );

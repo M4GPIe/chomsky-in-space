@@ -1,35 +1,61 @@
 import React, { useEffect } from 'react';
 import * as BABYLON from '@babylonjs/core';
+import { Exoplanet } from '../../../models/planet';
 
 interface ExoplanetRenderProps {
     scene: BABYLON.Scene;
     position: BABYLON.Vector3;
-    diameter: number;
-    color: BABYLON.Color3;
-    name: string;
-    rotationSpeed?: number;  // Velocidad opcional de rotación
+    exoplanet: Exoplanet;
+    rotationSpeed?: number; // Velocidad opcional de rotación
 }
 
-const ExoplanetRender: React.FC<ExoplanetRenderProps> = ({ scene, position, diameter, color, name, rotationSpeed = 0.005 }) => {
+const ExoplanetRender: React.FC<ExoplanetRenderProps> = ({
+    scene,
+    position,
+    exoplanet,
+    rotationSpeed = 0.005,
+}) => {
     useEffect(() => {
-        // Crear el planeta (una esfera)
-        const planetMaterial = new BABYLON.PBRMaterial(`${name}-material`, scene);
-        planetMaterial.albedoColor = color;
-        planetMaterial.roughness = 0.5;  // Ajuste de rugosidad
+        // Crear el material del planeta
 
-        const planet = BABYLON.MeshBuilder.CreateSphere(name, { diameter, segments: 32 }, scene);
-        planet.material = planetMaterial;
-        planet.position = position;
+        let planet: BABYLON.AbstractMesh | null = null;
 
-        // Rotar el planeta sobre su propio eje
-        scene.onBeforeRenderObservable.add(() => {
-            planet.rotation.y += rotationSpeed;  // Rotación en el eje Y (cambiar a otros ejes si es necesario)
-        });
+        // Importar la malla del planeta
+        BABYLON.SceneLoader.ImportMesh(
+            '', // No specific mesh name, load all meshes
+            './assets/', // The path to the model
+            'volcan.glb', // The model filename
+            scene, // The scene to load the model into
+            (meshes) => {
+                if (meshes.length > 0) {
+                    planet = meshes[0]; // Tomar la primera malla importada
+                    planet.position = position;
 
+                    // Ajustar la rotación y el escalado inicial de la malla
+                    planet.rotation = new BABYLON.Vector3(0, Math.PI / 4, 0); // Rotate 45 degrees around Y-axis
+                    planet.scaling = new BABYLON.Vector3(0.05, 0.05, 0.05); // Shrink the model
+
+                    // Rotar el planeta sobre su propio eje con animación
+                    scene.onBeforeRenderObservable.add(() => {
+                         planet!.rotation.y += rotationSpeed;
+                            const angle = performance.now() * rotationSpeed * 0.001; // Calcular ángulo en función del tiempo
+                            planet!.position.x = Math.cos(angle);
+                            planet!.position.z = Math.sin(angle);
+                    });
+                }
+            },
+            undefined, // onProgress callback (optional)
+            (_, message, exception) => {
+                console.error('Error loading .obj model:', message, exception);
+            }
+        );
+        // Limpieza cuando el componente se desmonta
         return () => {
-            planet.dispose(); // Limpieza cuando el componente se desmonta
+            if (planet) {
+                planet.dispose();
+            }
         };
-    }, [scene, position, diameter, color, name, rotationSpeed]);
+    }, [exoplanet, rotationSpeed]);
 
     return null;
 };
