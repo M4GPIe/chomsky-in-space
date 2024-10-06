@@ -169,10 +169,12 @@ body {
   background-clip: content-box;
   cursor: pointer;
   user-select: none;
-  font-family: "Courier New";
-  font-weight: bold;
+  font-family: "Retropix";
+  font-weight:  bolder;
   font-style: normal;
+  font-size: large;
   text-align: center;
+  width: 150px
 }
 
 .button-container:active {
