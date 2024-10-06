@@ -3,54 +3,26 @@ import {
   Dialog, DialogTitle, DialogContent, TextField, Box, Tooltip, Typography
 } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
-import { Star, RocketLaunch } from '@mui/icons-material'; // Iconos espaciales
+import { RocketLaunch } from '@mui/icons-material'; // Iconos espaciales
 import { appColorPalette } from '../../utils';
 import PublicIcon from '@mui/icons-material/Public';
-
-interface FormData {
-  solarSystem: string;
-  name: string;
-  radius: number;
-  mass: number;
-  type: string;
-  orbitalPeriod: number;
-  luminosityOfStar: number;
-  distanceToStar: number;
-}
+import { FormData } from '..';
 
 interface ExoplanetFormModalProps {
   open: boolean;
   handleClose: () => void;
+  formData: FormData
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface formTab {label: string, subtitle: string, fieldName: keyof FormData}
 
-const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClose }) => {
+const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClose, handleInputChange, formData }) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
-  const [formData, setFormData] = useState<FormData>({
-    solarSystem: '',
-    name: '',
-    radius: 0,
-    mass: 0,
-    type: '',
-    orbitalPeriod: 0,
-    luminosityOfStar: 0,
-    distanceToStar: 0,
-  });
 
   const handleTabChange = (tabIndex: number) => {
     setCurrentTab(tabIndex);
   };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  console.log(formData)
 
   const tabs : formTab[] = [
     { label: 'Sistema solar', subtitle: 'El sistema solar donde se encuentra el exoplaneta.', fieldName:'solarSystem' },
