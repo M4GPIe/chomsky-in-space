@@ -23,6 +23,8 @@ interface ExoplanetFormModalProps {
   handleClose: () => void;
 }
 
+interface formTab {label: string, subtitle: string, fieldName: keyof FormData}
+
 const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClose }) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>({
@@ -48,19 +50,21 @@ const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClo
     });
   };
 
-  const tabLabels = [
-    { label: 'Sistema solar', subtitle: 'El sistema solar donde se encuentra el exoplaneta.' },
-    { label: 'Nombre', subtitle: 'El nombre del exoplaneta.' },
-    { label: 'Radio del planeta', subtitle: 'El radio del exoplaneta en kilómetros.' },
-    { label: 'Masa del planeta', subtitle: 'La masa del exoplaneta en relación a la masa de la Tierra.' },
-    { label: 'Tipo', subtitle: 'El tipo de exoplaneta (rocoso, gaseoso, etc.).' },
-    { label: 'Periodo orbital', subtitle: 'El tiempo que tarda el exoplaneta en completar una órbita alrededor de su estrella.' },
-    { label: 'Luminosidad de la estrella', subtitle: 'La luminosidad de la estrella alrededor de la cual orbita el exoplaneta.' },
-    { label: 'Distancia desde la estrella', subtitle: 'La distancia entre el exoplaneta y su estrella en unidades astronómicas.' }
+  console.log(formData)
+
+  const tabs : formTab[] = [
+    { label: 'Sistema solar', subtitle: 'El sistema solar donde se encuentra el exoplaneta.', fieldName:'solarSystem' },
+    { label: 'Nombre', subtitle: 'El nombre del exoplaneta.', fieldName:'name' },
+    { label: 'Radio del planeta', subtitle: 'El radio del exoplaneta en kilómetros.', fieldName:'radius' },
+    { label: 'Masa del planeta', subtitle: 'La masa del exoplaneta en relación a la masa de la Tierra.', fieldName:'mass' },
+    { label: 'Tipo', subtitle: 'El tipo de exoplaneta (rocoso, gaseoso, etc.).', fieldName:'type' },
+    { label: 'Periodo orbital', subtitle: 'El tiempo que tarda el exoplaneta en completar una órbita alrededor de su estrella.', fieldName:'orbitalPeriod' },
+    { label: 'Luminosidad de la estrella', subtitle: 'La luminosidad de la estrella alrededor de la cual orbita el exoplaneta.', fieldName:'luminosityOfStar' },
+    { label: 'Distancia desde la estrella', subtitle: 'La distancia entre el exoplaneta y su estrella en unidades astronómicas.', fieldName:'distanceToStar' }
   ];
 
-  const currentTabInfo = tabLabels[currentTab]
-  const progressValue = ((currentTab) / tabLabels.length) * 110;
+  const currentTabInfo = tabs[currentTab]
+  const progressValue = ((currentTab) / tabs.length) * 110;
 
   return (
     <Dialog
@@ -81,7 +85,7 @@ const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClo
         },
       }}
     >
-      <DialogTitle variant='h4' sx={{ textAlign: 'center', color: '#B8FF85' }}>🚀 Editar Exoplaneta </DialogTitle>
+      <DialogTitle variant='h4' sx={{ textAlign: 'center', color: '#fff' }}>🚀 Editar Exoplaneta </DialogTitle>
       <DialogContent>
         <Box sx={{ position: 'relative', my: 2 }}>
           <LinearProgress
@@ -96,7 +100,7 @@ const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClo
             }}
           />
           <Box sx={{ display: 'flex', justifyContent: 'space-between', position: 'absolute', width: '100%', top: '-6px' }}>
-            {tabLabels.map((tab, index) => (
+            {tabs.map((tab, index) => (
               <Tooltip key={index} title={tab.label}>
                 <Box
                   onClick={() => handleTabChange(index)}
@@ -127,16 +131,35 @@ const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClo
             <Typography variant='h5' sx={{ color: 'white' }}>{currentTabInfo.label}</Typography>
             <Typography variant="subtitle1" sx={{ color: 'white' }}>{currentTabInfo.subtitle}</Typography>
             <TextField
-              label={currentTabInfo.label}
-              name={currentTabInfo.label}
+              label={currentTabInfo.label}  // Etiqueta amigable para los usuarios
+              name={currentTabInfo.fieldName}
               fullWidth
-              value={formData.solarSystem}
+              value={formData[currentTabInfo.fieldName]}
               onChange={handleInputChange}
               margin="normal"
+              variant="outlined" // Asegura un borde claro alrededor del campo
               InputProps={{
                 sx: {
-                  backgroundColor: '#fff', // Campo de texto blanco
+                  backgroundColor: '#fff', // Fondo blanco del campo de texto
                   borderRadius: 2,
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'black', // Borde negro al hacer hover
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'black', // Borde negro cuando está enfocado
+                  },
+                },
+              }}
+              InputLabelProps={{
+                sx: {
+                  padding: '0 4px',           // Espacio para evitar superposición con el campo de texto
+                  color: 'black',             // Color negro del texto del label
+                  '&.MuiInputLabel-shrink': { // Aplica cuando el label está flotando
+                    transform: 'translate(14px, -9px) scale(0.75)', // Ajuste de posición para el label flotante
+                    backgroundColor: appColorPalette['PURPLE'].bright,
+                    color: 'white'
+                  },
+                  borderRadius:'5px'
                 },
               }}
             />
