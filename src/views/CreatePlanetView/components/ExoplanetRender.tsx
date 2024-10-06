@@ -33,7 +33,7 @@ const ExoplanetRender: React.FC<ExoplanetRenderProps> = ({
 
                     // Ajustar la rotación y el escalado inicial de la malla
                     planet.rotation = new BABYLON.Vector3(0, Math.PI / 4, 0); // Rotate 45 degrees around Y-axis
-                    planet.scaling = new BABYLON.Vector3(0.05, 0.05, 0.05); // Shrink the model
+                    planet.scaling = new BABYLON.Vector3(0.05 * exoplanet.radius / 6371, 0.05 * exoplanet.radius / 6371, 0.05 * exoplanet.radius / 6371); // Shrink the model
 
                     // Rotar el planeta sobre su propio eje con animación
                     scene.onBeforeRenderObservable.add(() => {
