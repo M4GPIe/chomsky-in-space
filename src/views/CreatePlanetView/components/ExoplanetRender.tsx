@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import * as BABYLON from '@babylonjs/core';
-import { Exoplanet } from '../../../models/planet';
+import { Earth, Exoplanet, ExoplanetType } from '../../../models/planet';
 
 interface ExoplanetRenderProps {
     scene: BABYLON.Scene;
@@ -20,11 +20,19 @@ const ExoplanetRender: React.FC<ExoplanetRenderProps> = ({
 
         let planet: BABYLON.AbstractMesh | null = null;
 
+        const names = ['gaseoso', 'volcan', 'rocoso']
+
+        let name = names[0];
+        console.log(exoplanet.radius)
+
+        if (exoplanet.type === ExoplanetType.ROCKY) {
+            name = exoplanet.mass >= Earth.mass ? names[1] : names[2];
+        }
         // Importar la malla del planeta
         BABYLON.SceneLoader.ImportMesh(
             '', // No specific mesh name, load all meshes
             './assets/', // The path to the model
-            'volcan.glb', // The model filename
+            `${name}.glb`, // The model filename
             scene, // The scene to load the model into
             (meshes) => {
                 if (meshes.length > 0) {

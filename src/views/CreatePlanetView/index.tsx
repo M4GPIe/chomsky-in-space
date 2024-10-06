@@ -25,8 +25,8 @@ const CreatePlanetView: React.FC = () => {
         mass: Earth.mass,
         type: Earth.type,
         orbitalPeriod: 0,
-        luminosityOfStar: 0,
-        distanceToStar: 0,
+        luminosityOfStar: 1,
+        distanceToStar: Earth.distanceToStar,
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +44,7 @@ const CreatePlanetView: React.FC = () => {
                 <Box flex={1}>
                     <PlanetScene exoplanet={{...formData, aqua: 0, maxAltitude: formData.radius, minAltitude: formData.radius} as Exoplanet}/>
                 </Box>
-                <PlanetInfoModal open={true} handleClose={()=>{}} handleInputChange={handleInputChange} formData={formData}/>
+                <PlanetInfoModal open={true} handleClose={()=>{}} handleInputChange={handleInputChange} formData={formData} setFormData={setFormData}/>
             </Box>
         </>
     );

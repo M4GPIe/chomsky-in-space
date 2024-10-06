@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as BABYLON from '@babylonjs/core';
 import '@babylonjs/loaders'; // Import loaders to load .obj files
 import ExoplanetRender from './ExoplanetRender';
-import { Exoplanet } from '../../../models/planet';
+import { Earth, Exoplanet } from '../../../models/planet';
 
 
 interface PlanetSceneProps {
@@ -35,7 +35,7 @@ const PlanetScene: React.FC<PlanetSceneProps> = ({ exoplanet }) => {
 
         // Luz
         const light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 0), newScene);
-        light.intensity = 1.7;
+        light.intensity = exoplanet.luminosityOfStar + (exoplanet.distanceToStar - Earth.distanceToStar) / Earth.distanceToStar ;
 
         // Render loop
         engine.runRenderLoop(() => {
