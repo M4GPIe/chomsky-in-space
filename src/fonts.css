@@ -11,9 +11,17 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Belamor';
     src: url('/assets/fonts/Belamor Demo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pixelated';
+    src: url('/assets/fonts/VT323-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

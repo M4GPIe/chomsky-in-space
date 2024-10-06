@@ -1,32 +1,36 @@
 /* Title Animation */
 @keyframes fadeInSlideDown {
     0% {
-      opacity: 0;
-      transform: translateY(-50px);
+        opacity: 0;
+        transform: translateY(+250px) scale(2);
     }
+
     100% {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(-20px) scale(1);
     }
-  }
-  
-  .app-title {
-    opacity: 0; /* Initial state hidden */
-    animation: fadeInSlideDown 2s ease-in-out forwards; /* Fade-in slide-down */
-  }
-  
-  /* Optional: Content Fade-in */
-  @keyframes fadeIn {
+}
+
+.app-title {
+    opacity: 0;
+    /* Initial state hidden */
+    animation: fadeInSlideDown 2s ease-out forwards;
+    /* Fade-in slide-down */
+}
+
+/* Optional: Content Fade-in */
+@keyframes fadeIn {
     0% {
-      opacity: 0;
+        opacity: 0;
     }
+
     100% {
-      opacity: 1;
+        opacity: 1;
     }
-  }
-  
-  .content {
+}
+
+.content {
     opacity: 0;
     animation: fadeIn 1s ease-in-out forwards;
-  }
-  
+}
+
