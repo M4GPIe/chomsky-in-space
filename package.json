@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@babylonjs/core": "^7.28.0",
+    "@babylonjs/loaders": "^7.28.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.2",

@@ -1,0 +1,32 @@
+/* Title Animation */
+@keyframes fadeInSlideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .app-title {
+    opacity: 0; /* Initial state hidden */
+    animation: fadeInSlideDown 2s ease-in-out forwards; /* Fade-in slide-down */
+  }
+  
+  /* Optional: Content Fade-in */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .content {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+  }
+  
