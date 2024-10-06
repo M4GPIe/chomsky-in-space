@@ -11,7 +11,7 @@ const CreatePlanetView: React.FC = () => {
                 <Box flex={1}>
                     <PlanetScene />
                 </Box>
-                <PlanetInfoModal />
+                <PlanetInfoModal open={true} handleClose={()=>{}}/>
             </Box>
         </>
     );

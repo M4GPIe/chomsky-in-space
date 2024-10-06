@@ -1,45 +1,150 @@
-import React from 'react';
-import { Box, Typography, Modal } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Dialog, DialogTitle, DialogContent, TextField, Box, Tooltip, Typography
+} from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
+import { Star, RocketLaunch } from '@mui/icons-material'; // Iconos espaciales
+import { appColorPalette } from '../../utils';
+import PublicIcon from '@mui/icons-material/Public';
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '10%',
-    right: '5%',
-    width: 300,
-    bgcolor: 'rgba(255, 255, 255, 0.8)',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: 2,
+interface FormData {
+  solarSystem: string;
+  name: string;
+  radius: number;
+  mass: number;
+  type: string;
+  orbitalPeriod: number;
+  luminosityOfStar: number;
+  distanceToStar: number;
+}
+
+interface ExoplanetFormModalProps {
+  open: boolean;
+  handleClose: () => void;
+}
+
+const ExoplanetFormModal: React.FC<ExoplanetFormModalProps> = ({ open, handleClose }) => {
+  const [currentTab, setCurrentTab] = useState<number>(0);
+  const [formData, setFormData] = useState<FormData>({
+    solarSystem: '',
+    name: '',
+    radius: 0,
+    mass: 0,
+    type: '',
+    orbitalPeriod: 0,
+    luminosityOfStar: 0,
+    distanceToStar: 0,
+  });
+
+  const handleTabChange = (tabIndex: number) => {
+    setCurrentTab(tabIndex);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const tabLabels = [
+    { label: 'Sistema solar', subtitle: 'El sistema solar donde se encuentra el exoplaneta.' },
+    { label: 'Nombre', subtitle: 'El nombre del exoplaneta.' },
+    { label: 'Radio del planeta', subtitle: 'El radio del exoplaneta en kilómetros.' },
+    { label: 'Masa del planeta', subtitle: 'La masa del exoplaneta en relación a la masa de la Tierra.' },
+    { label: 'Tipo', subtitle: 'El tipo de exoplaneta (rocoso, gaseoso, etc.).' },
+    { label: 'Periodo orbital', subtitle: 'El tiempo que tarda el exoplaneta en completar una órbita alrededor de su estrella.' },
+    { label: 'Luminosidad de la estrella', subtitle: 'La luminosidad de la estrella alrededor de la cual orbita el exoplaneta.' },
+    { label: 'Distancia desde la estrella', subtitle: 'La distancia entre el exoplaneta y su estrella en unidades astronómicas.' }
+  ];
+
+  const currentTabInfo = tabLabels[currentTab]
+  const progressValue = ((currentTab) / tabLabels.length) * 110;
+
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      maxWidth="md"
+      fullWidth
+      sx={{
+        '& .MuiPaper-root': {
+          position: 'absolute',
+          top: '10%',
+          right: '5%',
+          margin: 0,
+          width: '400px',
+          borderRadius: 5,
+          backgroundColor: appColorPalette['PURPLE'].dark, 
+          color: '#fff', // Texto blanco
+        },
+      }}
+    >
+      <DialogTitle variant='h4' sx={{ textAlign: 'center', color: '#B8FF85' }}>🚀 Editar Exoplaneta </DialogTitle>
+      <DialogContent>
+        <Box sx={{ position: 'relative', my: 2 }}>
+          <LinearProgress
+            variant="determinate"
+            value={progressValue}
+            sx={{
+              height: '8px',
+              backgroundColor: '#ffffff', // Barra de progreso celeste
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: appColorPalette['PURPLE'].bright, // Color del progreso en amarillo
+              },
+            }}
+          />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', position: 'absolute', width: '100%', top: '-6px' }}>
+            {tabLabels.map((tab, index) => (
+              <Tooltip key={index} title={tab.label}>
+                <Box
+                  onClick={() => handleTabChange(index)}
+                  sx={{
+                    width: '24px',
+                    height: '24px',
+                    backgroundColor: index <= currentTab ? appColorPalette['PURPLE'].bright : '#e0e0e0',
+                    borderRadius: '50%',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: 1,
+                    '&:hover': {
+                      backgroundColor: appColorPalette['PURPLE'].main,
+                    },
+                  }}
+                >
+                  {index <= currentTab ? <RocketLaunch fontSize="small" sx={{color:'white'}}/> : <PublicIcon fontSize="small" />}
+                </Box>
+              </Tooltip>
+            ))}
+          </Box>
+        </Box>
+
+        <Box mt={2}>
+          <Box>
+            <Typography variant='h5' sx={{ color: 'white' }}>{currentTabInfo.label}</Typography>
+            <Typography variant="subtitle1" sx={{ color: 'white' }}>{currentTabInfo.subtitle}</Typography>
+            <TextField
+              label={currentTabInfo.label}
+              name={currentTabInfo.label}
+              fullWidth
+              value={formData.solarSystem}
+              onChange={handleInputChange}
+              margin="normal"
+              InputProps={{
+                sx: {
+                  backgroundColor: '#fff', // Campo de texto blanco
+                  borderRadius: 2,
+                },
+              }}
+            />
+          </Box>
+        </Box>
+      </DialogContent>
+    </Dialog>
+  );
 };
 
-const PlanetInfoModal: React.FC = () => {
-    return (
-        <Modal open={true} onClose={() => {}}>
-            <Box sx={style}>
-                <Typography variant="h6" component="h2">
-                    Planet: Exo-212b
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 2 }}>
-                    <strong>Type:</strong> Rocky
-                </Typography>
-                <Typography variant="body1">
-                    <strong>Radius:</strong> 6,371 km
-                </Typography>
-                <Typography variant="body1">
-                    <strong>Mass:</strong> 5.972 × 10^24 kg
-                </Typography>
-                <Typography variant="body1">
-                    <strong>Orbital Period:</strong> 365 days
-                </Typography>
-                <Typography variant="body1">
-                    <strong>Atmosphere:</strong> 78% Nitrogen, 21% Oxygen
-                </Typography>
-                <Typography variant="body1">
-                    <strong>Surface Temperature:</strong> 288 K (15 °C)
-                </Typography>
-            </Box>
-        </Modal>
-    );
-};
-
-export default PlanetInfoModal;
+export default ExoplanetFormModal;
