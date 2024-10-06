@@ -34,3 +34,227 @@
     animation: fadeIn 1s ease-in-out forwards;
 }
 
+.container {
+  margin: 50px;
+  display: block;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.pixel, .pixel2 {
+  font-size: 25px;
+  color: white;
+  height: auto;
+  margin: 10px;
+  font-family: 'VT323';
+  
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  text-transform: uppercase;
+  
+  cursor: pointer;
+  
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.pixel:active, .pixel2:active {
+  top: 2px;
+}
+
+.pixel {
+  line-height: 0;
+  
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: -o-crisp-edges; /* Opera */
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+  
+  border-style: solid;
+  border-width: 20px;
+  -moz-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+  -webkit-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+  -o-border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+  border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
+}
+
+.pixel p {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  width: auto;
+  text-align: center;
+  margin: -20px -20px;
+  line-height: 20px;
+  padding: 10px 20px;
+  
+	background: #000000;
+	background:
+		linear-gradient(135deg, transparent 10px, #000000 0) top left,
+		linear-gradient(225deg, transparent 10px, #000000 0) top right,
+		linear-gradient(315deg, transparent 10px, #000000 0) bottom right,
+		linear-gradient(45deg,  transparent 10px, #000000 0) bottom left;
+	background-size: 50% 50%;
+	background-repeat: no-repeat;
+	background-image:
+		radial-gradient(circle at 0 0, rgba(204,0,0,0) 14px, #000000 15px),
+		radial-gradient(circle at 100% 0, rgba(204,0,0,0) 14px, #000000 15px),
+		radial-gradient(circle at 100% 100%, rgba(204,0,0,0) 14px, #000000 15px),
+		radial-gradient(circle at 0 100%, rgba(204,0,0,0) 14px, #000000 15px);
+}
+
+.pixel2 {
+  position: relative;
+  display: block;
+  margin: 10px;
+  font-family: 'VT323';
+  text-transform: uppercase;
+  
+  font-size: 25px;
+  color: white;
+}
+
+.pixel2::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: -10px;
+  right: -10px;
+  background: black;
+  z-index: -1;
+}
+
+.pixel2::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: -6px;
+  right: -6px;
+  background: black;
+  z-index: -1;
+}
+
+.pixel2 {
+  padding: 10px 10px;
+  position: relative;
+  background: black;
+  width: auto;
+  z-index: 2;
+}
+
+body {
+  text-align: center
+}
+
+.button-container {
+  margin: 4px;
+  position: relative;
+  display: inline-block;
+  padding: 4px;
+  background-color: #d9d9d9;
+  overflow: hidden;
+  background-clip: content-box;
+  cursor: pointer;
+  user-select: none;
+  font-family: "Courier New";
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+
+.button-container:active {
+  top: 4px;
+}
+
+.button-container.success {
+  background-color: #fb6ba2;
+  color: black;
+}
+
+.button-container.danger {
+  background-color: indianred;
+  color: gainsboro;
+}
+
+.button-container > p {
+  margin: 8px;
+}
+
+.corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-image: url("https://svgshare.com/i/158Q.svg");
+  background-size: cover;
+}
+
+.corner-top-left {
+  top: 0;
+  left: 0;
+}
+
+.corner-top-right {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.corner-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+}
+
+.corner-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.border {
+  position: absolute;
+  background-color: #000;
+}
+
+.border-top,
+.border-bottom {
+  left: 8px;
+  right: 8px;
+  height: 4px;
+}
+
+.border-left,
+.border-right {
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+}
+
+.border-top {
+  top: 0;
+}
+
+.border-bottom {
+  bottom: 0;
+}
+
+.border-left {
+  left: 0;
+}
+
+.border-right {
+  right: 0;
+}

@@ -58,33 +58,22 @@ const Launcher: React.FC = () => {
                             </Typography>
                             {/* TODO: change navigation route */}
                             <Stack width="100%" display="flex" justifyContent="center" alignItems="center">
-                            <Button
-                                className="retro-button"
-                                onClick={() => handleOnRouteChange('/sandbox')}
-                                sx={{
-                                    paddingInline: 3,
-                                    backgroundImage: `url('../../../assets/pixel-button.png')`,
-                                    backgroundSize: 'cover',
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundPosition: 'center',
-                                    width: '200px',
-                                    height: '80px',
-                                    border: 'none',
-                                }}
-                            >
-                                <Typography
-                                    variant='h4'
-                                    sx={{
-                                        fontFamily: 'Pixelated',
-                                        marginBottom: 2., 
-                                        fontStyle: {
-                                            color: 'white',
-                                        }
-                                    }}
+                      
+                            <div className="button-container success"    onClick={() => handleOnRouteChange('/sandbox')}
+
                                 >
-                                    start
-                                </Typography>
-                            </Button>
+      <div className="corner corner-top-left"></div>
+      <div className="corner corner-top-right"></div>
+      <div className="corner corner-bottom-left"></div>
+      <div className="corner corner-bottom-right"></div>
+      <div className="border border-top"></div>
+      <div className="border border-bottom"></div>
+      <div className="border border-left"></div>
+      <div className="border border-right"></div>
+      <p>
+        START
+      </p>
+    </div>
                             </Stack>
                         </>
                     )}
