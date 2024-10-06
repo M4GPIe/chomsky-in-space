@@ -2,9 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as BABYLON from '@babylonjs/core';
 import '@babylonjs/loaders'; // Import loaders to load .obj files
 import ExoplanetRender from './ExoplanetRender';
-import { Earth } from '../../../models/planet';
+import { Exoplanet } from '../../../models/planet';
 
-const PlanetScene: React.FC = () => {
+
+interface PlanetSceneProps {
+    exoplanet: Exoplanet;
+}
+
+
+const PlanetScene: React.FC<PlanetSceneProps> = ({ exoplanet }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [scene, setScene] = useState<BABYLON.Scene | null>(null);
     const [time, setTime] = useState(0);  // Para controlar la órbita de la luna
@@ -54,7 +60,7 @@ const PlanetScene: React.FC = () => {
                 <ExoplanetRender
                     scene={scene}
                     position={new BABYLON.Vector3(0, 0, 0)}  // El planeta está en el centro
-                    exoplanet={Earth}
+                    exoplanet={exoplanet}
                 />
             )}
         </div>
