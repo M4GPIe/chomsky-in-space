@@ -5,6 +5,7 @@ import '../../../fonts.css';
 import './Launcher.css';
 
 import { useNavigationChange } from '../../../hooks/useNavigationChange';
+import { appColorPalette } from '../../utils';
 
 const Launcher: React.FC = () => {
     const [showContent, setShowContent] = useState(false);
@@ -38,7 +39,7 @@ const Launcher: React.FC = () => {
                         sx={{
                             fontFamily: 'AstroFuture, sans-serif',
                             marginBottom: '100px',
-                            // color: '#6aff45',
+                            color: appColorPalette['GREEN'].main
                         }}
                     >
                         Beyond the marble
@@ -50,11 +51,13 @@ const Launcher: React.FC = () => {
                                 className="content"
                                 variant="h5"
                                 gutterBottom
-                                sx={{ fontFamily: 'Belamor' }}
+                                sx={{ 
+                                  fontFamily: 'Retropix' ,  }}
                             >
                                 Begin your challenge
                             </Typography>
                             {/* TODO: change navigation route */}
+                            <Stack width="100%" display="flex" justifyContent="center" alignItems="center">
                             <Button
                                 className="retro-button"
                                 onClick={() => handleOnRouteChange('/sandbox')}
@@ -82,6 +85,7 @@ const Launcher: React.FC = () => {
                                     start
                                 </Typography>
                             </Button>
+                            </Stack>
                         </>
                     )}
 
